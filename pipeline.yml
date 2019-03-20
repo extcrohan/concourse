@@ -1,0 +1,20 @@
+---
+jobs:
+- name: deploy
+  public: true
+  serial: true
+  plan:
+  - get: Concourse
+    trigger: true
+  - put: swarm
+    params:
+       file: build.sh
+resources:
+- name: Concourse
+  type: git
+  source:
+    uri: https://github.com/extcrohan/concourse.git
+- name: swarm
+  type: swarm
+  source:
+    file: /home/node/concourse-test/build.sh
